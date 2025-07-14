@@ -26,26 +26,19 @@ vim.keymap.set('n', '<leader>dq', vim.diagnostic.setqflist, { desc = 'Open all d
 -- Open diagnostics for current buffer in location list
 vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open buffer diagnostics in loclist' })
 
--- Open binary files
--- vim.api.nvim_create_autocmd('BufReadCmd', {
---   pattern = '*.pdf',
---   callback = function()
---     local filename = vim.fn.shellescape(vim.api.nvim_buf_get_name(0))
---     vim.cmd('silent !mupdf ' .. filename .. ' &')
---     vim.cmd 'let tobedeleted = bufnr(\'%\') | b# | exe "bd! " . tobedeleted'
---   end,
--- })
---
--- vim.api.nvim_create_autocmd('BufReadCmd', {
---   pattern = { '*.png', '*.jpg', '*.jpeg', '*.gif', '*.webp' },
---   callback = function()
---     local filename = vim.fn.shellescape(vim.api.nvim_buf_get_name(0))
---     vim.cmd('silent !eyestalk ' .. filename .. ' &')
---     vim.cmd 'let tobedeleted = bufnr(\'%\') | b# | exe "bd! " . tobedeleted'
---   end,
--- })
---
--- Go file-specific settings
+vim.keymap.set('n', '<leader>*', function()
+  require('telescope.builtin').grep_string { search = vim.fn.expand '<cword>' }
+end, { desc = 'Search word under cursor (Telescope)' })
+
+-- Navigation key-- Colemak-DH (rstf) Navigation remaps for normal, visual, and operator-pending modes
+local modes = { 'n', 'x', 'o' }
+for _, mode in ipairs(modes) do
+  vim.keymap.set(mode, 'r', 'h', { desc = 'Move left' })
+  vim.keymap.set(mode, 's', 'j', { desc = 'Move down' })
+  vim.keymap.set(mode, 'f', 'k', { desc = 'Move up' })
+  vim.keymap.set(mode, 't', 'l', { desc = 'Move right' })
+end -- Go file-specific settings
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'go',
   callback = function()
