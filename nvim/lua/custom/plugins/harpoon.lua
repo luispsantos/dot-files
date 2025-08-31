@@ -13,19 +13,19 @@ return {
       harpoon.ui:toggle_quick_menu(harpoon:list())
     end, { desc = 'Harpoon: Toggle quick menu' })
 
-    vim.keymap.set('n', '<C-m>', function()
+    vim.keymap.set('n', '<F1>', function()
       harpoon:list():select(1)
     end)
-    vim.keymap.set('n', '<C-n>', function()
+    vim.keymap.set('n', '<F2>', function()
       harpoon:list():select(2)
     end)
-    vim.keymap.set('n', '<C-b>', function()
+    vim.keymap.set('n', '<F3>', function()
       harpoon:list():select(3)
     end)
-    vim.keymap.set('n', '<C-v>', function()
+    vim.keymap.set('n', '<F4>', function()
       harpoon:list():select(4)
     end)
-    --
+
     -- Remove current file from Harpoon list
     vim.keymap.set('n', '<leader>hr', function()
       harpoon:list():remove()
@@ -46,6 +46,11 @@ return {
     vim.keymap.set('n', '<leader>hn', function()
       harpoon:list():next()
     end, { desc = 'Harpoon: Next file' })
+
+    -- Clear all harpoon marks
+    vim.keymap.set('n', '<leader>hc', function()
+      harpoon:list():clear()
+    end, { desc = 'Harpoon: Clear all marks' })
 
     -- basic telescope configuration
     -- local conf = require('telescope.config').values
